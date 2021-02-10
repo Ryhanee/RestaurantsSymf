@@ -212,7 +212,7 @@
       <workItem from="1612868181900" duration="94000" />
       <workItem from="1612893712916" duration="14286000" />
       <workItem from="1612950606180" duration="715000" />
-      <workItem from="1612984527158" duration="1736000" />
+      <workItem from="1612984527158" duration="2091000" />
     </task>
     <task id="LOCAL-00001" summary="deuxieme commit avec erreur restaurant">
       <created>1612819654428</created>
@@ -249,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612986598961</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="deuxieme commit avec restaurant config">
+      <created>1612986743193</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1612986743193</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
