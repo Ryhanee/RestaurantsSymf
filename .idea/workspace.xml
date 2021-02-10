@@ -24,6 +24,12 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
@@ -206,7 +212,7 @@
       <workItem from="1612868181900" duration="94000" />
       <workItem from="1612893712916" duration="14286000" />
       <workItem from="1612950606180" duration="715000" />
-      <workItem from="1612984527158" duration="1572000" />
+      <workItem from="1612984527158" duration="1736000" />
     </task>
     <task id="LOCAL-00001" summary="deuxieme commit avec erreur restaurant">
       <created>1612819654428</created>
@@ -236,7 +242,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612986505561</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="deuxieme commit avec restaurant config">
+      <created>1612986598961</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1612986598961</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
