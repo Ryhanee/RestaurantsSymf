@@ -7,6 +7,7 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RestaurantRepository::class)
@@ -37,22 +38,16 @@ class Restaurant
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Upload your image")
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg" })
      */
     private $image;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="module", orphanRemoval=true)
-     */
-    private $images;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Menu::class, mappedBy="resto")
-     */
-    private $menus;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="author")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
 
@@ -61,13 +56,23 @@ class Restaurant
      */
     private $specialite;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Emplacement::class, inversedBy="restaurant", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="adresse_resto", referencedColumnName="id_emp",nullable=true)
+     */
+    private $adresse_resto;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Menu::class, inversedBy="restaurant")
+     */
+    private $menu;
 
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        $this->menus = new ArrayCollection();
+        $this->adresse = new ArrayCollection();
+        $this->menu = new ArrayCollection();
     }
 
     /**
@@ -83,12 +88,12 @@ class Restaurant
         }
     }
 
+
     public function getIdResto(): ?int
     {
         return $this->id_resto;
     }
-
-    public function setIdResto(int $id_resto): self
+    public function setId( int $id_resto ):self
     {
         $this->id_resto = $id_resto;
 
@@ -131,12 +136,12 @@ class Restaurant
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image)
     {
         $this->image = $image;
 
@@ -225,6 +230,56 @@ class Restaurant
         $this->specialite = $specialite;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|emplacement[]
+     */
+    public function getAdresse(): Collection
+    {
+        return $this->adresse;
+    }
+
+    public function addAdresse(emplacement $adresse): self
+    {
+        if (!$this->adresse->contains($adresse)) {
+            $this->adresse[] = $adresse;
+            $adresse->setEmplacement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdresse(emplacement $adresse): self
+    {
+        if ($this->adresse->removeElement($adresse)) {
+            // set the owning side to null (unless already changed)
+            if ($adresse->getEmplacement() === $this) {
+                $adresse->setEmplacement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAdresseResto(): ?emplacement
+    {
+        return $this->adresse_resto;
+    }
+
+    public function setAdresseResto(emplacement $adresse_resto): self
+    {
+        $this->adresse_resto = $adresse_resto;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Menu[]
+     */
+    public function getMenu(): Collection
+    {
+        return $this->menu;
     }
 
 

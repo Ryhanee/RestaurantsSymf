@@ -10,24 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegistrationType extends AbstractType
+class RegistrationType extends ApplicationType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @param string $label
-     * @param string $placeholder
-     * @param string $options
-     * @return array
-     */
-    private function getConfiguration($label , string $placeholder, $options = []){
-        return array_merge([
-            'label' => $label,
-            'attr' => [ 'placholder' => $placeholder]
-        ], $options);
-    }
-
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -36,6 +20,8 @@ class RegistrationType extends AbstractType
             ->add('tel', TextType::class, $this->getConfiguration("Telephone","Votre téléphone"))
             ->add('email', EmailType::class, $this->getConfiguration("Email", "Votre adresse mail"))
             ->add('password', PasswordType::class, $this->getConfiguration("Password", "Tapez votre mot de passe"))
+            ->add('passwordConfirmation', PasswordType::class, $this->getConfiguration("Confirmation de mot de passe", "Confirmer votre mot de passe"))
+            ->add('username', TextType::class, $this->getConfiguration("Slug","Votre slug"))
 
         ;
     }

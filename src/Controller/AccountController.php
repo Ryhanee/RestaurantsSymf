@@ -51,6 +51,8 @@ class AccountController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', "Les données du profil ont élé enregistré avec succés !");
+
         }
         return $this->render('account/register.html.twig', [
         'form' => $form->createView()
@@ -67,7 +69,6 @@ class AccountController extends AbstractController
         $user = $this->getUser();
         $form = $this->createForm(AccountType::class, $user);
         $form->handleRequest($request);
-
 
         if($form->isSubmitted() && $form->isValid()){
             $entityManager = $this->getDoctrine()->getManager();

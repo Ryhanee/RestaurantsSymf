@@ -19,10 +19,8 @@ class Menu
      */
     private $id;
 
-
     /**
-     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="menus")
-     * @ORM\JoinColumn(name="id_resto", referencedColumnName="id_resto",nullable=false)
+     * @ORM\ManyToMany(targetEntity=Restaurant::class, inversedBy="menus")
      */
     private $resto;
 
@@ -31,10 +29,27 @@ class Menu
      */
     private $plats;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Categorie::class, inversedBy="categorie")
+     */
+    private $categorie;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $libelle;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Restaurant::class, mappedBy="menu")
+     */
+    private $restaurant;
+
 
     public function __construct()
     {
         $this->plats = new ArrayCollection();
+        $this->categorie = new ArrayCollection();
+        $this->restaurant = new ArrayCollection();
 
     }
 
@@ -80,6 +95,69 @@ class Menu
             if ($plat->getMenus() === $this) {
                 $plat->setMenus(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Categorie[]
+     */
+    public function getCategorie(): Collection
+    {
+        return $this->categorie;
+    }
+
+    public function addCategorie(Categorie $categorie): self
+    {
+        if (!$this->categorie->contains($categorie)) {
+            $this->categorie[] = $categorie;
+        }
+
+        return $this;
+    }
+
+    public function removeCategorie(Categorie $categorie): self
+    {
+        $this->categorie->removeElement($categorie);
+
+        return $this;
+    }
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(string $libelle): self
+    {
+        $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Restaurant[]
+     */
+    public function getRestaurant(): Collection
+    {
+        return $this->restaurant;
+    }
+
+    public function addRestaurant(Restaurant $restaurant): self
+    {
+        if (!$this->restaurant->contains($restaurant)) {
+            $this->restaurant[] = $restaurant;
+            $restaurant->addMenu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurant(Restaurant $restaurant): self
+    {
+        if ($this->restaurant->removeElement($restaurant)) {
+            $restaurant->removeMenu($this);
         }
 
         return $this;

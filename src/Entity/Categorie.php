@@ -24,14 +24,16 @@ class Categorie
      */
     private $libelle_cat;
 
+
     /**
-     * @ORM\OneToMany(targetEntity=Plats::class, mappedBy="type", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=Menu::class, mappedBy="categorie")
      */
-    private $libelle_plat;
+    private $menu;
 
     public function __construct()
     {
         $this->libelle_plat = new ArrayCollection();
+        $this->menu = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +78,33 @@ class Categorie
             if ($libellePlat->getType() === $this) {
                 $libellePlat->setType(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Menu[]
+     */
+    public function getCategorie(): Collection
+    {
+        return $this->categorie;
+    }
+
+    public function addMenu(Menu $menu): self
+    {
+        if (!$this->menu->contains($menu)) {
+            $this->menu[] = $menu;
+            $menu->addMenu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMenu(Menu $menu): self
+    {
+        if ($this->menu->removeElement($menu)) {
+            $menu->removeCategorie($this);
         }
 
         return $this;

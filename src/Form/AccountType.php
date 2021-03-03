@@ -4,18 +4,20 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AccountType extends AbstractType
+class AccountType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('tel')
-            ->add('email')
+            ->add('nom', TextType::class)
+            ->add('prenom', TextType::class)
+            ->add('tel', TextType::class)
+            ->add('email', EmailType::class)
         ;
     }
 

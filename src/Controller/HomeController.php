@@ -17,6 +17,13 @@ class HomeController extends Controller{
     public function home(){
         return $this->render('home.html.twig');
     }
+
+    /**
+     * @Route("/admin", name="dashboard")
+     */
+    public function dashboard(){
+        return $this->render('/dashboard.html.twig');
+    }
 }
 
 

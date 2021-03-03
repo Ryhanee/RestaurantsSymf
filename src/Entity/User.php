@@ -69,15 +69,24 @@ class User implements UserInterface
     }
 
     /**
+     * @Assert\EqualTo(propertyPath="password" , message="Vous n'avez pas correctement confirmer votre mot de passe" )
+     */
+public $passwordConfirmation;
+
+/**
+ * @ORM\Column(type="string", length=255, nullable=true)
+ */
+private $username;
+    /**
      * Permet d'initialiser le slug
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      * @return void
      */
     public function initializeSlug() {
-        if(empty($this->slug)){
+        if(empty($this->username)){
             $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->nom.' '. $this->prenom);
+            $this->username = $slugify->slugify($this->username);
         }
     }
 
@@ -189,7 +198,7 @@ class User implements UserInterface
 
     public function getUsername()
     {
-        return $this->email;
+        return $this->username;
     }
 
     public function eraseCredentials()
@@ -200,6 +209,13 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }
