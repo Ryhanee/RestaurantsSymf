@@ -13,26 +13,12 @@
  </div>
 <div class="container">
     <h2>Menu</h2>
-
-   <table>
-       <tr>
-        {% for mn in resto.menus %}
-            {% for cat in mn.categorie  %}
-        <td >
-            {{ cat.libelleCat }} {{ mn.libelle }}
-        </td>
-            {% endfor %}
-        {% endfor %}
-       </tr>
-<tr>
-       {% for mnpl in resto.menus %}
-       {% for pl in mnpl.plats %}
-       <td>
-           {{ pl.libelle }}
-       </td>
-
-{% endfor %} {% endfor %}
-</tr>
-   </table>
+    <ul>
+{% for menu in resto.menus %}
+    {% for plat in menu.plats %}
+        <li>{{ plat.libelle }}</li>
+    {% endfor %}
+    {% endfor %}
+    </ul>
 </div>
 {% endblock %}

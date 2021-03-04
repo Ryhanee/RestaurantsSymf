@@ -19,8 +19,10 @@ class Menu
      */
     private $id;
 
+
     /**
-     * @ORM\ManyToMany(targetEntity=Restaurant::class, inversedBy="menus")
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="menus")
+     * @ORM\JoinColumn(name="id_resto", referencedColumnName="id_resto",nullable=true)
      */
     private $resto;
 
@@ -39,17 +41,11 @@ class Menu
      */
     private $libelle;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Restaurant::class, mappedBy="menu")
-     */
-    private $restaurant;
-
 
     public function __construct()
     {
         $this->plats = new ArrayCollection();
         $this->categorie = new ArrayCollection();
-        $this->restaurant = new ArrayCollection();
 
     }
 
@@ -132,33 +128,6 @@ class Menu
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Restaurant[]
-     */
-    public function getRestaurant(): Collection
-    {
-        return $this->restaurant;
-    }
-
-    public function addRestaurant(Restaurant $restaurant): self
-    {
-        if (!$this->restaurant->contains($restaurant)) {
-            $this->restaurant[] = $restaurant;
-            $restaurant->addMenu($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRestaurant(Restaurant $restaurant): self
-    {
-        if ($this->restaurant->removeElement($restaurant)) {
-            $restaurant->removeMenu($this);
-        }
 
         return $this;
     }

@@ -44,6 +44,10 @@ class Restaurant
     private $image;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity=Menu::class, mappedBy="resto")
+     */
+    private $menus;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="author")
@@ -62,17 +66,12 @@ class Restaurant
      */
     private $adresse_resto;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Menu::class, inversedBy="restaurant")
-     */
-    private $menu;
-
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->menus = new ArrayCollection();
         $this->adresse = new ArrayCollection();
-        $this->menu = new ArrayCollection();
     }
 
     /**
@@ -88,12 +87,12 @@ class Restaurant
         }
     }
 
-
     public function getIdResto(): ?int
     {
         return $this->id_resto;
     }
-    public function setId( int $id_resto ):self
+
+    public function setIdResto(int $id_resto): self
     {
         $this->id_resto = $id_resto;
 
@@ -136,12 +135,12 @@ class Restaurant
         return $this;
     }
 
-    public function getImage()
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    public function setImage($image)
+    public function setImage(string $image): self
     {
         $this->image = $image;
 
@@ -272,14 +271,6 @@ class Restaurant
         $this->adresse_resto = $adresse_resto;
 
         return $this;
-    }
-
-    /**
-     * @return Collection|Menu[]
-     */
-    public function getMenu(): Collection
-    {
-        return $this->menu;
     }
 
 
