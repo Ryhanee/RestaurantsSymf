@@ -33,6 +33,11 @@ class Livraison
      */
     private $emplacement;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Commande::class, cascade={"persist", "remove"})
+     */
+    private $possede;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class Livraison
     public function setEmplacement(emplacement $emplacement): self
     {
         $this->emplacement = $emplacement;
+
+        return $this;
+    }
+
+    public function getPossede(): ?Commande
+    {
+        return $this->possede;
+    }
+
+    public function setPossede(?Commande $possede): self
+    {
+        $this->possede = $possede;
 
         return $this;
     }

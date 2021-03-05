@@ -29,7 +29,7 @@ class Image
 
     /**
      * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="images")
-     * @ORM\JoinColumn(name="id_resto", referencedColumnName="id_resto",nullable=false)
+     * @ORM\JoinColumn(name="id_resto", referencedColumnName="id",nullable=false)
      */
     private $module;
 

@@ -34,6 +34,11 @@ class Emplacement
      */
     private $restaurant;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Consomateur::class, inversedBy="emplacement")
+     */
+    private $consomateur;
+
     public function getId(): ?int
     {
         return $this->id_emp;
@@ -93,6 +98,18 @@ class Emplacement
         if ($restaurant->getAdresseResto() !== $this) {
             $restaurant->setAdresseResto($this);
         }
+
+        return $this;
+    }
+
+    public function getConsomateur(): ?Consomateur
+    {
+        return $this->consomateur;
+    }
+
+    public function setConsomateur(?Consomateur $consomateur): self
+    {
+        $this->consomateur = $consomateur;
 
         return $this;
     }

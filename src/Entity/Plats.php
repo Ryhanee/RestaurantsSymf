@@ -32,6 +32,11 @@ class Plats
      */
     private $menus;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="contient")
+     */
+    private $commande;
+
 
 
 
@@ -89,6 +94,18 @@ class Plats
     public function setType(?Categorie $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
 
         return $this;
     }

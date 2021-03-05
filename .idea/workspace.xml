@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fdc267b-ebad-4fee-a65a-b734593549d8" name="Default Changelist" comment="troisiéme commit">
-      <change afterPath="$PROJECT_DIR$/templates/admin/base.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/liste-plats.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/partials/footer.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/admin/partials/header.html.twig" afterDir="false" />
+    <list default="true" id="2fdc267b-ebad-4fee-a65a-b734593549d8" name="Default Changelist" comment="deuxieme commit avec restaurant config">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/restaurants/add.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/restaurants/add.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/restaurants/addPlats.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/restaurants/addPlats.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/restaurants/list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/restaurants/list.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/restaurants/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/restaurants/show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/restaurants/update.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/restaurants/update.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Emplacement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Emplacement.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Image.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Image.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Livraison.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Livraison.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Livreur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Livreur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Plats.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Plats.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Restaurant.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Restaurant.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +40,14 @@
       </GitPushTagMode>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -160,7 +165,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/PARCUS/BeSoft/20190823_besoft_89eb54035cb11c494166_20201111101421_archive" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="project.structure.last.edited" value="Project" />
@@ -172,19 +177,6 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\symfonyProject\resto\templates\restaurants" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -247,7 +239,9 @@
       <workItem from="1614803363677" duration="7571000" />
       <workItem from="1614844668303" duration="207000" />
       <workItem from="1614883564415" duration="3902000" />
-      <workItem from="1614887698600" duration="9678000" />
+      <workItem from="1614887698600" duration="6677000" />
+      <workItem from="1614908586476" duration="1251000" />
+      <workItem from="1614956132383" duration="1025000" />
     </task>
     <task id="LOCAL-00001" summary="deuxieme commit avec erreur restaurant">
       <created>1612819654428</created>
@@ -305,14 +299,7 @@
       <option name="project" value="LOCAL" />
       <updated>1614811631106</updated>
     </task>
-    <task id="LOCAL-00009" summary="troisiéme commit">
-      <created>1614894754897</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1614894754897</updated>
-    </task>
-    <option name="localTasksCounter" value="10" />
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,8 +322,7 @@
     <MESSAGE value="deuxieme commit avec restaurant" />
     <MESSAGE value="deuxieme commit avec restaurant config" />
     <MESSAGE value="crud plat et resto" />
-    <MESSAGE value="troisiéme commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="troisiéme commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="crud plat et resto" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

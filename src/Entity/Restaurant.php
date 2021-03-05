@@ -19,7 +19,7 @@ class Restaurant
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id_resto;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -60,11 +60,17 @@ class Restaurant
      */
     private $specialite;
 
+
     /**
      * @ORM\OneToOne(targetEntity=Emplacement::class, inversedBy="restaurant", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="adresse_resto", referencedColumnName="id_emp",nullable=true)
      */
     private $adresse_resto;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Livreur::class, mappedBy="opere")
+     */
+    private $livreurs;
 
 
     public function __construct()
@@ -72,6 +78,7 @@ class Restaurant
         $this->images = new ArrayCollection();
         $this->menus = new ArrayCollection();
         $this->adresse = new ArrayCollection();
+        $this->livreurs = new ArrayCollection();
     }
 
     /**
@@ -87,14 +94,14 @@ class Restaurant
         }
     }
 
-    public function getIdResto(): ?int
+    public function getId(): ?int
     {
-        return $this->id_resto;
+        return $this->id;
     }
 
-    public function setIdResto(int $id_resto): self
+    public function setId(int $id): self
     {
-        $this->id_resto = $id_resto;
+        $this->id = $id;
 
         return $this;
     }
@@ -269,6 +276,36 @@ class Restaurant
     public function setAdresseResto(emplacement $adresse_resto): self
     {
         $this->adresse_resto = $adresse_resto;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Livreur[]
+     */
+    public function getLivreurs(): Collection
+    {
+        return $this->livreurs;
+    }
+
+    public function addLivreur(Livreur $livreur): self
+    {
+        if (!$this->livreurs->contains($livreur)) {
+            $this->livreurs[] = $livreur;
+            $livreur->setOpere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivreur(Livreur $livreur): self
+    {
+        if ($this->livreurs->removeElement($livreur)) {
+            // set the owning side to null (unless already changed)
+            if ($livreur->getOpere() === $this) {
+                $livreur->setOpere(null);
+            }
+        }
 
         return $this;
     }
