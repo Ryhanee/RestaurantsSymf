@@ -47,13 +47,11 @@ class RestaurantsController extends AbstractController
     {
         // trouver un restaurant a partirss d'une libelle
         $resto = $repos->findOneByLibelle($libelle);
-        $menus = $menu->findAll($menu);
-        $cats = $cat->findAll($cat);
+        $menus = $resto->getMenus();
         $plats = $plat->findAll();
         return $this->render('restaurants/show.html.twig',
             ['resto' => $resto,
                 'menu' =>$menus,
-                'cats' => $cats,
                 'plat' => $plats
             ] );
 
@@ -81,53 +79,5 @@ class RestaurantsController extends AbstractController
     }
 
 
-
-    //Recherche Plat
-    public function searchAction(Request $request, MenuRepository $menurepo){
-        $em = $this->container->get('doctrine')->getEntityManager();
-
-        $menus = $menurepo->findAll();
-        if($request->getMethod("POST")){
-            $motclemenu=$request->get('input_recherche');
-            $query=$em->createQuery(
-                "SELECT m FROM Entity:Menu m WHERE m.categorie LIKE '".$motclemenu."%'"
-            );
-            $plats=$query->getResult();
-        }
-        return $this->render('@Resto/ModeleMenu/search.html.twig',
-            array(
-                'menus'=>$menus
-            ));
-    }
-
-
-    //ajouter un plat
-    /**
-     * Permet d'afficher un restaurant a partie de son nom
-     * @Route ("/plats/add/", name="add_plat")
-     */
-    public function addPlat(Request $request, PlatsRepository $repos): Response
-    {
-        $Modele = new Plats();
-        $form = $this->createForm(PlatsType::class, $Modele);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($Modele);
-                $entityManager->flush();
-                $this->addFlash('success', "Les données du plat ont élé enregistré avec succés !");
-                return $this->redirect($this->generateUrl("restaurants_list"));
-
-            }
-
-
-        return $this->render('restaurants/addPlats.html.twig',
-            array(
-                'Form' => $form->createView()
-            ));
-
-    }
 
 }

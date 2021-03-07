@@ -45,7 +45,7 @@ class Restaurant
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Menu::class, mappedBy="resto")
+     * @ORM\ManyToMany(targetEntity=Menu::class, mappedBy="resto")
      */
     private $menus;
 
@@ -142,47 +142,18 @@ class Restaurant
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage($image): self
     {
         $this->image = $image;
 
         return $this;
     }
 
-    /**
-     * @return Collection|Image[]
-     */
-    public function getImages(): Collection
-    {
-        return $this->images;
-    }
-
-    public function addImage(Image $image): self
-    {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setModule($this);
-        }
-
-        return $this;
-    }
-
-    public function removeImage(Image $image): self
-    {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getModule() === $this) {
-                $image->setModule(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|Menu[]

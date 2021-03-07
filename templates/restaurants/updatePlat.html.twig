@@ -1,0 +1,21 @@
+{% extends '/admin/base.html.twig' %}
+{%  block title %}
+    Modifier Le plat
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-3">&nbsp;</div>
+
+        <div class="col-6">
+            <div class="bg-light py-3 px-3">
+                <h2>Modifier Le plat</h2>
+
+                <form action="" method="POST">
+        {{ form_widget(editForm) }}
+        <input type="submit"/>
+        {{ form_end(editForm) }}
+    </form>
+            </div></div></div></div>
+    {% endblock %}

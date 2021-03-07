@@ -21,7 +21,7 @@ class Menu
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="menus")
+     * @ORM\ManyToMany(targetEntity=Restaurant::class, inversedBy="menus")
      * @ORM\JoinColumn(name="id_resto", referencedColumnName="id",nullable=true)
      */
     private $resto;

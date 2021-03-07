@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Menu;
+use App\Entity\Plats;
 use App\Entity\Restaurant;
+use App\Form\PlatsType;
 use App\Form\RestaurantType;
+use App\Repository\CategorieRepository;
 use App\Repository\MenuRepository;
 use App\Repository\PlatsRepository;
 use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -37,6 +41,27 @@ class AdminController extends AbstractController
             'restau' => $resto,
         ]);
     }
+
+
+    /**
+     * Permet d'afficher un restaurant a partie de son nom
+     * @Route ("admin/restaurant/{libelle}", name="show_resto_admin")
+     *
+     */
+    public function show($libelle, RestaurantRepository $repos,  PlatsRepository $plat): Response
+    {
+        // trouver un restaurant a partirss d'une libelle
+        $resto = $repos->findOneByLibelle($libelle);
+        $menus = $resto->getMenus();
+        $plats = $plat->findAll();
+        return $this->render('restaurants/show.html.twig',
+            ['resto' => $resto,
+                'menu' =>$menus,
+                'plat' => $plats
+            ] );
+
+    }
+
 
 //ajouter un resto
     /**
@@ -99,12 +124,18 @@ class AdminController extends AbstractController
         $resto = $repos->find($id);
         $editform = $this->createForm(RestaurantType::class, $resto);
         $editform->handleRequest($request);
+        $image = $resto->getImage();
 
         if ($editform->isSubmitted() && $editform->isValid())
         {
-            $file = $resto->getImage();
-            $filename = md5(uniqid()).'.'.$file->guessExtension();
-            $resto->setImage($filename);
+            if ( $resto->getImage() !=null ){
+                $resto->setImage(
+                    new File($this->getParameter('image_directory') . '/' . $resto->getImage())
+                );
+            }else { // aucune nouvelle image envoyée
+                //on recupère l'ancienne image
+                $resto->setImage($image);
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($resto);
             $em->flush();
@@ -112,78 +143,14 @@ class AdminController extends AbstractController
 
         return $this->render('restaurants/update.html.twig',
             [
-                'editForm'=>$editform->createView()
+                'editForm'=>$editform->createView(),
+                'resto'=>$resto
             ]);
     }
 
-//ajouter menu
-
-    public function addMenu(Request $request)
-    {
-        $menu = new Menu();
-        $form = $this->createForm(MenuForm::class, $menu);
-
-        $form->handleRequest($request);
-
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em= $this->getDoctrine()->getManager();
-            $em->persist($menu);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl("affichage_menu"));
-        }
-
-        return $this->render('@Resto/ModeleMenu/add.html.twig',
-            array(
-                'Form'=>$form->createView()
-            ));
-    }
-// supprimer un Menu
-
-    public function deleteMenu(Request $request, $id, MenuRepository $menuRepo)
-    {
-
-        $em= $this->getDoctrine()->getManager();
-        $menu = $menuRepo->find($id);
-        if ($menu!==null)
-        {
-            $em->remove($menu);
-            $em->flush();
-        }
-        else
-        {
-            throw new NotFoundHttpException("Le menu d'id".$id."n'existe pas");
-        }
-
-        return $this->redirectToRoute("affichage_menu");
-    }
-//Mettre à jour un menu
-
-    public function updateMenu(Request $request, $id, MenuRepository $menurepo)
-    {
-        $em= $this->getDoctrine()->getManager();
-        $Menu=$menurepo->find($id);
-
-        $editform = $this->createForm(MenuForm::class, $Menu);
-        $editform->handleRequest($request);
-
-        if ($editform->isSubmitted() && $editform->isValid())
-        {
-            $em->persist($Menu);
-            $em->flush();
-            return $this->redirect($this->generateUrl("affichage_menu"));
-        }
-
-        return $this->render('@Resto/ModeleMenu/update.html.twig',
-            array(
-                'editForm'=>$editform->createView()
-            ));
-    }
 
     /**
-     * index des restaurants
+     * index des plats
      * @Route("/admin/plats", name="list_plats", methods={"GET","HEAD"})
      */
     public function plats(PlatsRepository $repos, SessionInterface $session): Response
@@ -196,4 +163,77 @@ class AdminController extends AbstractController
         ]);
     }
 
+
+    //ajouter un plat
+    /**
+     * Permet d'afficher un restaurant a partie de son nom
+     * @Route ("admin/plats/add/", name="add_plat")
+     */
+    public function addPlat(Request $request, PlatsRepository $repos): Response
+    {
+        $Modele = new Plats();
+        $form = $this->createForm(PlatsType::class, $Modele);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($Modele);
+            $entityManager->flush();
+            $this->addFlash('success', "Les données du plat ont élé enregistré avec succés !");
+            return $this->redirect($this->generateUrl("list_plats"));
+
+        }
+
+
+        return $this->render('restaurants/addPlats.html.twig',
+            array(
+                'Form' => $form->createView()
+            ));
+
+    }
+
+
+    /**
+     * Permet d'afficher un restaurant a partie de son nom
+     * @Route ("admin/plats/update/{id}", name="update_plat")
+     */
+    public function updatePlat(Request $request, $id, PlatsRepository $repos):Response
+    {
+        $plat = $repos->find($id);
+        $editform = $this->createForm(PlatsType::class, $plat);
+        $editform->handleRequest($request);
+        if ($editform->isSubmitted() && $editform->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($plat);
+            $em->flush();
+            return $this->redirect($this->generateUrl("list_plats"));        }
+
+        return $this->render('restaurants/updatePlat.html.twig',
+            [
+                'editForm'=>$editform->createView()
+            ]);
+    }
+
+// supprimer un resto
+    /**
+     * Permet d'afficher un restaurant a partie de son nom
+     * @Route ("admin/plat/delete/{id}", name="delete_plat")
+     */
+    public function deletePlat(Request $request, $id , PlatsRepository $repos): Response
+    {
+        $plat = $repos->find($id);
+        $em= $this->getDoctrine()->getManager();
+        if ($plat!==null)
+        {
+            $em->remove($plat);
+            $em->flush();
+        }
+        else
+        {
+            throw new NotFoundHttpException("Le plat d'id".$id."n'existe pas");
+        }
+
+        return $this->redirect($this->generateUrl("list_plats"));    }
 }

@@ -15,27 +15,29 @@
 <nav id="jf-navbar" class="navbar is-transparent header-navbar sticky has-shadow">
     <div class="container">
         <div class="navbar-brand">
-            <div class="navbar-burger burger" data-target="header-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <a class="navbar-item mhxs is-hidden-desktop" href="/prime">
+                <div class="dir-row fvh-ctr">
+                    <img class="icon-w-16 mrs" src="/images/prime-icon.svg?v=1596116892">
+                    <span class="is-uppercase">Jumia Prime</span>
+                </div>
+            </a>
+
             <a class="navbar-item" href="{{ path('homepage') }}">
                 <img alt="Logo" class="is-hidden-touch" src="//africa-public.food.jumia.com/assets/production/tn/layout/themes/capricciosa_hellofood/images/fr/jumiafood-logo.png?v=1607511693">
                 <img class="is-hidden-desktop" src="/images/jumia-food-mobile.svg?v=1596116892" alt="Logo">
             </a>
 
+            <div class="navbar-burger burger" data-target="header-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
         </div>
+
         <div id="header-menu" class="navbar-menu has-text-centered-touch">
             <div class="navbar-end mhl-mobile">
-                <a class="navbar-item mhxs is-hidden-desktop" href="/prime">
-                    <div class="dir-row fvh-ctr">
-                        <img class="icon-w-16 mrs" src="/images/prime-icon.svg?v=1596116892">
-                        <span class="is-uppercase">Jumia Prime</span>
-                    </div>
-                </a>
-
-                <a class="navbar-item mhxs is-hidden-desktop" href="{{ path('restaurants_list') }}">
+                <a class="navbar-item mhxs" href="{{ path('restaurants_list') }}">
                     <div class="dir-col is-inline-block-touch">
                         <span class="is-uppercase">Restaurants</span>
                     </div>
@@ -45,34 +47,28 @@
                         <span class="is-uppercase">Commandes</span>
                     </div>
                 </a>
-                <a class="navbar-item mhxs" href="#">
+                <a class="navbar-item mhxs" href="{{ path('menu_list') }}">
                     <div class="dir-col is-inline-block-touch">
-                        <span class="is-uppercase">Utilisateurs</span>
+                        <span class="is-uppercase">Menus</span>
                     </div>
                 </a>
-
                 <a class="navbar-item mhxs" href="{{ path('list_plats') }}">
                     <div class="dir-col is-inline-block-touch">
                         <span class="is-uppercase">Plats</span>
                     </div>
                 </a>
+
+                <a class="navbar-item mhxs" href="{{ path('homepage') }}">
+                    <div class="dir-col is-inline-block-touch">
+                        <i class="fas fa-eye"></i>
+                        <span class="is-uppercase">Voir le site</span>
+                    </div>
+                </a>
                     <div class="navbar-item">
                         {% if app.user%}
-                            <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href={{ path() }} >
-                                compte
-                            </a>
-                            <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href={{ path('account_logout') }} >
+                            <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href="{{ path('account_logout') }}" >
                                 Logout
                             </a>
-
-                        {% else %}
-                            <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href={{ path('account_login') }} >
-                                Se connecter
-                            </a>
-                            <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href={{ path('account_register') }}>
-                                S'inscrire
-                            </a>
-
                         {% endif %}
                     </div>
                 </div>

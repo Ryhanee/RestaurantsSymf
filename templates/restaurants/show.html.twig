@@ -12,15 +12,27 @@
 
  </div>
 <div class="container">
+
     <h2>Menu</h2>
-    <ul>
-{% for menu in resto.menus %}
-    {% for plat in menu.plats %}
-        <li>{{ plat.libelle }}</li>
-    {% endfor %}
-    {% endfor %}
-    </ul>
 
 
-</div>
+{% for men in menu %}
+    <h3>{{ men.libelle }}</h3>
+    {% for plat in men.plats %}
+    <div class="row">
+        <div class="col-8">
+        {{ plat.libelle }}
+        </div>
+        <div class="col-4">
+            {{ plat.prixUnitaire }}
+        </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+
+
+
+    </div>
+
+
 {% endblock %}

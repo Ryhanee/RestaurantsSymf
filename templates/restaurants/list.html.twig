@@ -9,25 +9,31 @@
     </style>
     <div class="container">
         <div class="row">
-
-            <h1>Liste des modèles</h1>
+            <div class="col-10">
+            <h1>Liste des restaurants</h1>
+            </div>
+            <div class="col-2 ajout"><a href="{{ path('add_resto') }}">Ajouter</a> </div>
             <table class="table table-hover">
+                <th>
                 <tr>
+
                     <td>id</td>
                     <td>Libelle</td>
-                    <td>speciality</td>
-                    <td>telephone</td>
-                    <td>Supprimer</td>
-                    <td>Modifier</td>
+                    <td>Spécialité</td>
+                    <td>Téléphone</td>
+                    <td></td>
+                    <td></td>
+
                 </tr>
+                </th>
                 {% for resto in restau %}
                     <tr>
-                        <td>{{ resto.idResto }}</td>
+                        <td><a href="{{ path('show_resto_admin', {'libelle':resto.libelle}) }}">{{ resto.id }}</a></td>
                         <td>{{ resto.libelle }}</td>
                         <td>{{ resto.specialite}}</td>
                         <td>{{ resto.tel}}</td>
-                        <td><a href="{{ path("delete_resto", {'id' : resto.idResto}) }}" >Supprimer</a> </td>
-                        <td><a href="{{ path("update_resto", {'id' : resto.idResto}) }}" >Modifier</a> </td>
+                        <td><a href="{{ path("delete_resto", {'id' : resto.id}) }}" >Supprimer</a> </td>
+                        <td><a href="{{ path("update_resto", {'id' : resto.id}) }}" >Modifier</a> </td>
                     </tr>
                 {% endfor %}
 

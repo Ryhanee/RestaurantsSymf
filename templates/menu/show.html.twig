@@ -1,0 +1,43 @@
+{% extends 'admin/base.html.twig' %}
+{%  block title %}
+    {{ menu.libelle }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="has-text-centered-touch resto-title" style="">
+        <div class="container">
+            <div class="row">
+                <div class="col-10"> <h2>{{ menu.libelle }}</h2></div>
+
+        <div class="col-2 ajout"><a href="{{ path('add_plat') }}">Ajouter un plat</a> </div>
+
+        <table class="table table-hover">
+            <th>
+            <tr>
+
+             <td>id</td>
+            <td>Libelle</td>
+             <td>Prix Unitaire</td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            </th>
+            {% for plat in plats %}
+            <tr>
+                <td>{{ plat.id }}</td>
+                <td>{{ plat.libelle }}</td>
+                <td>{{ plat.prixUnitaire }}</td>
+                <td><a href="{{ path("delete_plat", {'id' : plat.id}) }}" >Supprimer</a> </td>
+                <td><a href="{{ path("update_plat", {'id' : plat.id}) }}" >Modifier</a> </td>
+
+
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+
+
+{% endblock %}

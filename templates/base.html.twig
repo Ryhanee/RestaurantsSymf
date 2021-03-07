@@ -35,7 +35,7 @@
     </div>
   </a>
                                           
-                      <a class="navbar-item mhxs is-hidden-desktop" href="/restaurants">
+                      <a class="navbar-item mhxs is-hidden-desktop" href="{{ path('restaurants_list') }}">
     <div class="dir-col is-inline-block-touch">
         <span class="is-uppercase">Restaurants</span>
     </div>
@@ -51,18 +51,18 @@
 </a>
                           <div class="navbar-item">
                                                  {% if app.user%}
-                 <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href={{ path() }} >
+                 <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href="#" >
                  compte
                  </a>
-                <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href={{ path('account_logout') }} >
+                <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href="{{ path('account_logout') }}" >
                     Logout
                 </a>
 
                               {% else %}
-                              <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href={{ path('account_login') }} >
+                              <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href="{{ path('account_login') }}" >
                                   Se connecter
                               </a>
-                              <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href={{ path('account_register') }}>
+                              <a class="button is-primary is-small is-size-5 is-fullwidth-touch has-text-weight-bold is-uppercase" href="{{ path('account_register') }}">
                                   S'inscrire
                               </a>
 

@@ -6825,7 +6825,18 @@ Media Query
 }
 
 
-
+.col-2.ajout a {
+    color: white;
+    font-weight: 700;
+    background: #ec8a23;
+    margin-top: 20px !important;
+    padding: 10px;
+    border-radius: 3px;
+}
 
 /* Custom, iPhone Retina */
 @media only screen and (max-width:320px) {}
+.navbar.has-shadow {
+    box-shadow: 0 2px 3px rgb(0 0 0 / 10%);
+    margin-bottom: 50px;
+}

@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 {%  block title %}
-Modifier un restaurant{% endblock %}
->
-{% block body %}
-<h1>Modifier un restaurant</h1>
+Modifier un restaurant
+{% endblock %}
 
-<form action="" method="POST">
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-3">&nbsp;</div>
+
+        <div class="col-6">
+            <div class="bg-light py-3 px-3">
+                <h2>Modifier  {{ resto.libelle }}</h2>
+                <form action="" method="POST">
     {{ form_widget(editForm) }}
     <input type="submit"/>
+    {{ form_end(editForm) }}
 </form>
-
-    <{% endblock %}
+</div>
+        </div></div></div>
+        <{% endblock %}
